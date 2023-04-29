@@ -1,4 +1,4 @@
-import "./category-card.style.scss";
+import "./CategoryCard.scss";
 
 const CategoryCard = ({ category: { title, imageUrl } }) => (
   <article className="category-card">

@@ -1,5 +1,5 @@
-import CategoryCard from "../category-card/category-card.component";
-import "./category-list.styles.scss";
+import CategoryCard from "../CategoryCard/CategoryCard";
+import "./CategoryList.scss";
 
 const CategoryList = ({ categories }) => (
   <section className="category-list">
