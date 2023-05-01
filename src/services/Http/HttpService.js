@@ -6,21 +6,14 @@ const httpService = {
     const requestUrl = `${BASE_URL}/${url}${
       queryParams ? `?${queryParams}` : ""
     }`;
-    return fetch(requestUrl)
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
-        }
-      })
-      .then((data) => {
-        // handle successful response here
-      })
-      .catch((error) => {
-        console.error(error);
-        // display error message in the frontend here
-      });
+    return fetch(requestUrl).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.message);
+        });
+      }
+      return response.json();
+    });
   },
   post: async (url, data) => {
     const requestUrl = `${BASE_URL}/${url}`;
@@ -30,17 +23,14 @@ const httpService = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
-        }
-      })
-      .then((data) => {
-        return data;
-      });
+    }).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.message);
+        });
+      }
+      return response.json();
+    });
   },
 
   put: async (url, data) => {
@@ -51,39 +41,25 @@ const httpService = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
-        }
-      })
-      .then((data) => {
-        // handle successful response here
-      })
-      .catch((error) => {
-        console.error(error);
-        // display error message in the frontend here
-      });
+    }).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.message);
+        });
+      }
+      return response.json();
+    });
   },
   delete: async (url) => {
     const requestUrl = `${BASE_URL}/${url}`;
-    return fetch(requestUrl, { method: "DELETE" })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
-        }
-      })
-      .then((data) => {
-        // handle successful response here
-      })
-      .catch((error) => {
-        console.error(error);
-        // display error message in the frontend here
-      });
+    return fetch(requestUrl, { method: "DELETE" }).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.message);
+        });
+      }
+      return response.json();
+    });
   },
 };
 

@@ -3,7 +3,7 @@ import { SignUpSchema } from "../../schemas/SignUp";
 import httpService from "../../services/Http/HttpService";
 import FormInput from "../FormInput/FormInput";
 import "./SignUpForm.scss";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 
 const SignUpForm = () => {
   const onSubmit = async (values, actions) => {
@@ -86,7 +86,7 @@ const SignUpForm = () => {
         {errors.confirmPassword && touched.confirmPassword && (
           <p>{errors.confirmPassword}</p>
         )}
-        <Button type="submit">Sign Up</Button>
+        <Button children="Sign Up" type="submit" />
       </form>
     </div>
   );

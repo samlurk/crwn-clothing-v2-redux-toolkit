@@ -4,7 +4,7 @@ const BUTTON_TYPE_CLASSES = {
   google: "button--google-sign-in",
   inverted: "button--inverted",
 };
-const Button = ({ children, buttonType, otherProps }) => {
+const Button = ({ children, buttonType, ...otherProps }) => {
   return (
     <button
       className={`button ${BUTTON_TYPE_CLASSES[buttonType]}`}
