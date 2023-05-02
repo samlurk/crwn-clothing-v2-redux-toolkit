@@ -1,14 +1,18 @@
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SignInForm from "../../components/SignInForm/SignInForm";
+import "./Auth.scss";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const SignIn = () => {
+const Auth = () => {
   return (
-    <div>
-      <h1>Sign In Page</h1>
-      <SignInForm />
+    <div className="auth">
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <SignInForm />
+      </GoogleOAuthProvider>
+
       <SignUpForm />
     </div>
   );
 };
 
-export default SignIn;
+export default Auth;

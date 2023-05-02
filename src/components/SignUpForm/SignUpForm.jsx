@@ -86,7 +86,7 @@ const SignUpForm = () => {
         {errors.confirmPassword && touched.confirmPassword && (
           <p>{errors.confirmPassword}</p>
         )}
-        <Button children="Sign Up" type="submit" />
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );

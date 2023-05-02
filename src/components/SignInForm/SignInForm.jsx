@@ -4,31 +4,44 @@ import httpService from "../../services/Http/HttpService";
 import FormInput from "../FormInput/FormInput";
 import "./SignInForm.scss";
 import Button from "../Button/Button";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const SignInForm = () => {
   const onSubmit = async (values, actions) => {
     try {
-      const { confirmPassword, ...formData } = values;
-      const data = await httpService.post("auth/signup", formData);
+      const { ...user } = values;
+      console.log(user);
+      const data = await httpService.post("auth/login", user);
+      console.log(data);
       actions.resetForm();
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const signIn = async (credentialResponse) => {
-    try {
-      const datos = await httpService.post("auth/login-google", {
-        token: credentialResponse.credential,
-      });
-      console.log(datos);
-    } catch (error) {}
-  };
+  const signInWithGoogle = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (codeResponse) => {
+      try {
+        const tokens = await httpService.post("auth/login-google", {
+          code: codeResponse.code,
+        });
+        console.log(tokens);
+      } catch (error) {
+        if (
+          error.message !== "The email/username doesn't exists" ||
+          error.message !== "Incorrect password"
+        )
+          console.log(error);
+        alert(error.message);
+      }
+    },
+  });
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
-        email: "",
+        username: "",
         password: "",
       },
       validationSchema: SignInSchema,
@@ -38,18 +51,18 @@ const SignInForm = () => {
   return (
     <div className="sign-in">
       <h2>Already have an account?</h2>
-      <span>Sign in with your email and password</span>
+      <span>Sign in with your email or username and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
-          label="Email"
-          type="email"
+          label="Email or Username"
+          type="text"
           required
           onChange={handleChange}
-          name="email"
+          name="username"
           onBlur={handleBlur}
-          value={values.email}
+          value={values.username}
         />
-        {errors.email && touched.email && <p>{errors.email}</p>}
+        {errors.username && touched.username && <p>{errors.username}</p>}
         <FormInput
           label="Password"
           type="password"
@@ -60,14 +73,12 @@ const SignInForm = () => {
           value={values.password}
         />
         {errors.password && touched.password && <p>{errors.password}</p>}
-        <Button type="submit">Sign In</Button>
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-          <GoogleLogin
-            className="google-login-button"
-            useOneTap={true}
-            onSuccess={signIn}
-          ></GoogleLogin>
-        </GoogleOAuthProvider>
+        <div className="sign-in__buttons">
+          <Button type="submit">Sign In</Button>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
+            Google Sign In
+          </Button>
+        </div>
       </form>
     </div>
   );
