@@ -9,7 +9,6 @@ const Auth = () => {
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <SignInForm />
       </GoogleOAuthProvider>
-
       <SignUpForm />
     </div>
   );

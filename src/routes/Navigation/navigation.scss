@@ -1,7 +1,6 @@
 header {
     height: 70px;
     width: 100%;
-    padding: 0 30px;
     display: flex;
     margin-bottom: 25px;
 
@@ -17,9 +16,9 @@ header {
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            gap: 25px;
     
             .nav__item{
-                padding-left: 30px;
                 text-align: center;
             .nav__link {
                     cursor: pointer;

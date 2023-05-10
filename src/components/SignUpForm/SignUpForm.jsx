@@ -4,12 +4,16 @@ import httpService from "../../services/Http/HttpService";
 import FormInput from "../FormInput/FormInput";
 import "./SignUpForm.scss";
 import Button from "../Button/Button";
+import { AuthContext } from "../../contexts/Auth";
+import { useContext } from "react";
 
 const SignUpForm = () => {
+  const { login } = useContext(AuthContext);
   const onSubmit = async (values, actions) => {
     try {
       const { confirmPassword, ...formData } = values;
-      const data = await httpService.post("auth/signup", formData);
+      const { ACCESS_TOKEN } = await httpService.post("auth/signup", formData);
+      login(ACCESS_TOKEN);
       actions.resetForm();
     } catch (error) {
       alert(error.message);
@@ -37,55 +41,58 @@ const SignUpForm = () => {
         <FormInput
           label="First Name"
           type="text"
+          isError={errors.firstName && touched.firstName}
+          errorMessageResponse={errors.firstName}
           required
           onChange={handleChange}
           name="firstName"
           onBlur={handleBlur}
           value={values.firstName}
         />
-        {errors.firstName && touched.firstName && <p>{errors.firstName}</p>}
         <FormInput
           label="Last Name"
           type="text"
+          isError={errors.lastName && touched.lastName}
+          errorMessageResponse={errors.lastName}
           required
           onChange={handleChange}
           name="lastName"
           onBlur={handleBlur}
           value={values.lastName}
         />
-        {errors.lastName && touched.lastName && <p>{errors.lastName}</p>}
         <FormInput
           label="Email"
           type="email"
+          isError={errors.email && touched.email}
+          errorMessageResponse={errors.email}
           required
           onChange={handleChange}
           name="email"
           onBlur={handleBlur}
           value={values.email}
         />
-        {errors.email && touched.email && <p>{errors.email}</p>}
         <FormInput
           label="Password"
           type="password"
+          isError={errors.password && touched.password}
+          errorMessageResponse={errors.password}
           required
           onChange={handleChange}
           name="password"
           onBlur={handleBlur}
           value={values.password}
         />
-        {errors.password && touched.password && <p>{errors.password}</p>}
         <FormInput
           label="Confirm Password"
           type="password"
+          isError={errors.confirmPassword && touched.confirmPassword}
+          errorMessageResponse={errors.confirmPassword}
           required
           onChange={handleChange}
           name="confirmPassword"
           onBlur={handleBlur}
           value={values.confirmPassword}
         />
-        {errors.confirmPassword && touched.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
         <Button type="submit">Sign Up</Button>
       </form>
     </div>

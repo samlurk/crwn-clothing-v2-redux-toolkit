@@ -5,14 +5,20 @@ import FormInput from "../FormInput/FormInput";
 import "./SignInForm.scss";
 import Button from "../Button/Button";
 import { useGoogleLogin } from "@react-oauth/google";
+import { UserContext } from "../../contexts/User";
+import { AuthContext } from "../../contexts/Auth";
+import { useContext } from "react";
 
 const SignInForm = () => {
+  const { currentUser } = useContext(UserContext);
+  const { login } = useContext(AuthContext);
+  console.log(currentUser);
+
   const onSubmit = async (values, actions) => {
     try {
       const { ...user } = values;
-      console.log(user);
-      const data = await httpService.post("auth/login", user);
-      console.log(data);
+      const { ACCESS_TOKEN } = await httpService.post("auth/login", user);
+      login(ACCESS_TOKEN);
       actions.resetForm();
     } catch (error) {
       alert(error.message);
@@ -23,10 +29,10 @@ const SignInForm = () => {
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
       try {
-        const tokens = await httpService.post("auth/login-google", {
+        const { ACCESS_TOKEN } = await httpService.post("auth/login-google", {
           code: codeResponse.code,
         });
-        console.log(tokens);
+        login(ACCESS_TOKEN);
       } catch (error) {
         if (
           error.message !== "The email/username doesn't exists" ||
@@ -56,24 +62,26 @@ const SignInForm = () => {
         <FormInput
           label="Email or Username"
           type="text"
+          isError={errors.username && touched.username}
+          errorMessageResponse={errors.username}
           required
           onChange={handleChange}
           name="username"
           onBlur={handleBlur}
           value={values.username}
         />
-        {errors.username && touched.username && <p>{errors.username}</p>}
         <FormInput
           label="Password"
           type="password"
+          isError={errors.password && touched.password}
+          errorMessageResponse={errors.password}
           required
           onChange={handleChange}
           name="password"
           onBlur={handleBlur}
           value={values.password}
         />
-        {errors.password && touched.password && <p>{errors.password}</p>}
-        <div className="sign-in__buttons">
+        <div className="form__buttons">
           <Button type="submit">Sign In</Button>
           <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google Sign In

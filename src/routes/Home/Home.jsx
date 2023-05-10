@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CategoryList from "../../components/Category/CategoryList/CategoryList";
+import { CategoryContext } from "../../contexts/Category";
 
 function Home() {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      let response = await fetch("./categories.json");
-      setCategories(await response.json());
-    };
-    fetchCategories();
-  }, []);
+  const { categories } = useContext(CategoryContext);
   return (
     <main>
       <CategoryList categories={categories} />

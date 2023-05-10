@@ -9,7 +9,7 @@ $main-color: black;
 
 .form__item {
     position: relative;
-    margin: 45px 0;
+    margin: 30px 0 ;
 
     .form__input {
         background: none;
@@ -22,7 +22,7 @@ $main-color: black;
         border: none;
         border-radius: 0;
         border-bottom: 1px solid $sub-color;
-        margin: 25px 0;
+        margin: 25px 0 10px;
 
         &:focus {
             outline: none;
@@ -50,5 +50,10 @@ $main-color: black;
         &.form__label--shrink {
             @include shrinkLabel();
         }
+    }
+
+    .form__text--error{
+        font-size: .8em;
+        color: #ff3333;
     }
 }

@@ -1,6 +1,6 @@
 import "./FormInput.scss";
 
-const FormInput = ({ label, ...otherProps }) => {
+const FormInput = ({ label, isError, errorMessageResponse, ...otherProps }) => {
   return (
     <div className="form__item">
       <input className="form__input" {...otherProps} />
@@ -13,6 +13,7 @@ const FormInput = ({ label, ...otherProps }) => {
           {label}
         </label>
       )}
+      {isError && <p className="form__text--error">{errorMessageResponse}</p>}
     </div>
   );
 };
