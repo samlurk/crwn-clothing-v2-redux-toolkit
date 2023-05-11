@@ -9,8 +9,8 @@ import { CartContext } from "../../contexts/Cart";
 
 const Navigation = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
-  const { isCartOpen } = useContext(CartContext);
-
+  const { isCartOpen, cartItems } = useContext(CartContext);
+  console.log(cartItems);
   return (
     <>
       <header>
