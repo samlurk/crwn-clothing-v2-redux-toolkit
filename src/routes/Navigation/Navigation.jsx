@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import CrwnLogo from "../../assets/crown.svg";
-import "./navigation.scss";
+import "./Navigation.scss";
 import { AuthContext } from "../../contexts/Auth";
 import { useContext } from "react";
 import CartIcon from "../../components/CartIcon/CartIcon";
