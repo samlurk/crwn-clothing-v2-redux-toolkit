@@ -5,7 +5,6 @@ import App from "./App";
 import "./index.scss";
 import { UserProvider } from "./contexts/User";
 import { AuthProvider } from "./contexts/Auth";
-import { ProductsProvider } from "./contexts/Products";
 import { CategoriesProvider } from "./contexts/Category";
 import { CartProvider } from "./contexts/Cart";
 
@@ -15,11 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <UserProvider>
           <CategoriesProvider>
-            <ProductsProvider>
-              <CartProvider>
-                <App />
-              </CartProvider>
-            </ProductsProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
           </CategoriesProvider>
         </UserProvider>
       </AuthProvider>

@@ -25,6 +25,7 @@
     "react-router-dom": "^6.10.0",
     "sass": "^1.60.0",
     "sort-by": "^1.2.0",
+    "styled-components": "^6.0.0-rc.1",
     "vite": "^4.2.0",
     "yup": "^1.1.1"
   }
