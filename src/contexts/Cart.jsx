@@ -1,5 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 
+const addCartItemsOnLocalStorage = (cartItems) => {
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  return cartItems;
+};
 const addCartItem = (cartItems, productToAdd) => {
   let [...items] = cartItems;
   const [isFound] = [
@@ -62,17 +66,27 @@ export const CartProvider = ({ children }) => {
       0
     );
     setTotalCart(newTotalCart);
-  });
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    if (cartItems) setCartItems(JSON.parse(cartItems));
+  }, []);
+
   const removeItemToCart = (cartItemToRemove) => {
-    setCartItems(removeCartItem(cartItems, cartItemToRemove));
+    setCartItems(
+      addCartItemsOnLocalStorage(removeCartItem(cartItems, cartItemToRemove))
+    );
   };
 
   const addItemToCart = (productToAdd) => {
-    setCartItems(addCartItem(cartItems, productToAdd));
+    setCartItems(
+      addCartItemsOnLocalStorage(addCartItem(cartItems, productToAdd))
+    );
   };
 
   const clearItemFromCart = (id) => {
-    setCartItems(clearCartItem(cartItems, id));
+    setCartItems(addCartItemsOnLocalStorage(clearCartItem(cartItems, id)));
   };
 
   const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen);

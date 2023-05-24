@@ -6,8 +6,8 @@ const CategoriesPreview = () => {
   const { productsByCategories } = useContext(CategoryContext);
   return (
     <>
-      {productsByCategories.map(({ title, products }) => (
-        <CategoryPreview key={title} title={title} products={products} />
+      {productsByCategories.map(({ id, title, products }) => (
+        <CategoryPreview key={id} title={title} products={products} />
       ))}
     </>
   );
