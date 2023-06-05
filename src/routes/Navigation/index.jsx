@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import CrwnLogo from "../../assets/crown.svg";
-// import "./Navigation.scss";
-import { AuthContext } from "../../contexts/Auth";
+
 import { useContext } from "react";
 import CartIcon from "../../components/Cart/CartIcon";
 import CartDropdown from "../../components/Cart/CartDropdown";
@@ -14,9 +13,13 @@ import {
   Header,
   LogoContainer,
 } from "./index.styles";
+import { logout } from "../../store/Auth/reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../../store/Auth/selector";
 
 const Navigation = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const { isCartOpen } = useContext(CartContext);
   return (
     <>
@@ -31,7 +34,7 @@ const Navigation = () => {
             </NavigationItem>
             {isAuthenticated ? (
               <NavigationItem>
-                <NavigationLink as="span" onClick={logout}>
+                <NavigationLink as="span" onClick={() => dispatch(logout())}>
                   Sign Out
                 </NavigationLink>
               </NavigationItem>
