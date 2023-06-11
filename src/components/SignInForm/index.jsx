@@ -5,7 +5,7 @@ import FormInput from "../FormInput";
 import { SignIn, ButtonContainer, Form, Title } from "./index.styles";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button";
 import { useGoogleLogin } from "@react-oauth/google";
-import { login } from "../../store/Auth/reducer";
+import { login } from "../../store/Auth/action";
 import { useDispatch } from "react-redux";
 
 const SignInForm = () => {

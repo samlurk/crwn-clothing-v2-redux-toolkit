@@ -5,6 +5,7 @@ import FormInput from "../FormInput";
 import { SignUp, Title, Form } from "./index.styles";
 import Button from "../Button";
 import { useDispatch } from "react-redux";
+import { login } from "../../store/Auth/action";
 
 const SignUpForm = () => {
   const dispatch = useDispatch();

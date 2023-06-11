@@ -1,13 +1,13 @@
 import CategoryPreview from "../../components/Category/CategoryPreview";
 import { useSelector } from "react-redux";
-import { selectProductsByCategories } from "../../store/Categories/selector";
+import { selectProductsByCategoriesMap } from "../../store/Categories/selector";
 
 const CategoriesPreview = () => {
-  const productsByCategories = useSelector(selectProductsByCategories);
+  const productsByCategories = useSelector(selectProductsByCategoriesMap);
   return (
     <>
-      {productsByCategories.map(({ id, title, products }) => (
-        <CategoryPreview key={id} title={title} products={products} />
+      {Object.entries(productsByCategories).map(([title, products], index) => (
+        <CategoryPreview key={index} title={title} products={products} />
       ))}
     </>
   );

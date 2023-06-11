@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
   const dispatch = useDispatch();
+
+  const categories = useSelector(selectCategories);
   useEffect(() => {
     const fetchCategories = async () => {
       let response = await httpService.get("category");
@@ -14,7 +16,6 @@ function Home() {
     };
     fetchCategories();
   }, []);
-  const categories = useSelector(selectCategories);
   return (
     <main>
       <CategoryList categories={categories} />

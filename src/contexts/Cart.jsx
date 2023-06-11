@@ -1,40 +1,11 @@
 import { createContext, useEffect, useReducer } from "react";
-import { createAction } from "../utils/reducer";
-
-const addCartItemsOnLocalStorage = (cartItems) => {
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  return cartItems;
-};
-const addCartItem = (cartItems, productToAdd) => {
-  let [...items] = cartItems;
-  const [isFound] = [
-    ...cartItems.filter((item, index) => {
-      if (item.id === productToAdd.id) {
-        items[index].quantity++;
-        return item;
-      }
-    }),
-  ];
-  if (!isFound) items = [...items, { ...productToAdd, quantity: 1 }];
-  return items;
-};
-
-const removeCartItem = (cartItems, cartItemToRemove) => {
-  return cartItems.filter((item) => {
-    if (item.id !== cartItemToRemove.id) {
-      return item;
-    } else {
-      item.quantity--;
-      if (item.quantity > 0) {
-        return item;
-      }
-    }
-  });
-};
-
-const clearCartItem = (cartItems, id) => {
-  return cartItems.filter((item) => item.id !== id);
-};
+import { createAction } from "../utils/Reducer";
+import {
+  addCartItem,
+  addCartItemsOnLocalStorage,
+  clearCartItem,
+  removeCartItem,
+} from "../utils/Cart";
 
 const CART_ACTION_TYPES = {
   SET_CART_ITEMS: "SET_CART_ITEMS",

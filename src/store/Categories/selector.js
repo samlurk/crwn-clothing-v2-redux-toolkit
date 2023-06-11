@@ -1,4 +1,28 @@
-export const selectCategories = (state) => state.category.categories;
+import { createSelector } from "reselect";
 
-export const selectProductsByCategories = (state) =>
-  state.category.productsByCategories;
+const selectCategoryReducer = (state) => state.category;
+
+//* Categories
+
+export const selectCategories = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => categorySlice.categories
+);
+
+//* Products By Categories
+
+const selectProductsByCategories = createSelector(
+  [selectCategoryReducer],
+  (categorySlice) => categorySlice.productsByCategories
+);
+
+export const selectProductsByCategoriesMap = createSelector(
+  [selectProductsByCategories],
+  (productsByCategories) => {
+    return productsByCategories.reduce((acc, category) => {
+      const { title, products } = category;
+      acc[title.toLowerCase()] = products;
+      return acc;
+    }, {});
+  }
+);
