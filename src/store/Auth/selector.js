@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { createSelector } from "reselect";
+import { createSelector } from "@reduxjs/toolkit";
 
 //* Utility Types
 

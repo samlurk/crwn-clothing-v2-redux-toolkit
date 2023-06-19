@@ -1,19 +1,22 @@
-import { AUTH_ACTION_TYPES } from "./types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   token: null,
 };
 
-export const authReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
+export const authSlice = createSlice({
+  name: "auth",
+  initialState: INITIAL_STATE,
+  reducers: {
+    login(state, action) {
+      state.token = action.payload;
+    },
+    logout(state) {
+      state.token = null;
+    },
+  },
+});
 
-  switch (type) {
-    case AUTH_ACTION_TYPES.SET_TOKEN:
-      return {
-        ...state,
-        token: payload,
-      };
-    default:
-      return state;
-  }
-};
+export const { login, logout } = authSlice.actions;
+
+export const authReducer = authSlice.reducer;
